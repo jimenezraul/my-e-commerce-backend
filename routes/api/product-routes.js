@@ -21,7 +21,18 @@ router.get("/", (req, res) => {
         attributes: ["id", "tag_name"],
       },
     ],
-  });
+  }).then((dbProductData) => {
+    if (dbProductData) {
+      res.json(dbProductData);
+    } else {
+      res.status(404).json({ message: "No products found" });
+    }
+  }
+  ).catch((err) => {
+    console.log(err);
+    res.status(400).json(err);
+  }
+  );
 });
 
 // get one product
@@ -45,7 +56,18 @@ router.get("/:id", (req, res) => {
         attributes: ["id", "tag_name"],
       },
     ],
-  });
+  }).then((dbProductData) => {
+    if (dbProductData) {
+      res.json(dbProductData);
+    } else {
+      res.status(404).json({ message: "No product found with this id" });
+    }
+  }
+  ).catch((err) => {
+    console.log(err);
+    res.status(400).json(err);
+  }
+  );
 });
 
 // create new product
